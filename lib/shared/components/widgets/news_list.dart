@@ -11,6 +11,7 @@ class NewsList extends StatelessWidget {
     print('list rebuilds...');
 
     return ListView.builder(
+      physics: const BouncingScrollPhysics(),
       itemCount: news.length,
       itemBuilder: (context, index) => NewsListItem(
         imageUrl: news[index].imageUrl,

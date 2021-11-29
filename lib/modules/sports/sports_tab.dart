@@ -14,7 +14,7 @@ class SportsTab extends StatelessWidget {
         listener: (context, newsState) {},
         builder: (context, newsState) {
           final sportsNews = newsData.sportsNewsList;
-          if (newsState is NewsInitialState) {
+          if (sportsNews.isEmpty) {
             return const Center(
               child: CircularProgressIndicator(),
             );

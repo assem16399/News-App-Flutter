@@ -12,18 +12,44 @@ class NewsListItem extends StatelessWidget {
   final String? description;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: ListTile(
-        leading: Image.network(
-          imageUrl ?? '',
-          width: 100,
+    return Column(
+      children: [
+        ListTile(
+          minVerticalPadding: 10,
+          horizontalTitleGap: 15,
+          minLeadingWidth: 40,
+          leading: Container(
+            width: 100,
+            height: 150,
+            decoration: ShapeDecoration(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: imageUrl == null
+                  ? Image.asset(
+                      'assets/images/error.png',
+                      fit: BoxFit.cover,
+                    )
+                  : Image.network(
+                      imageUrl!,
+                      fit: BoxFit.cover,
+                    ),
+            ),
+          ),
+          title: Text(title ?? 'null'),
+          subtitle: Text(
+            description ?? 'unknown',
+            maxLines: 1,
+          ),
         ),
-        title: Text(title ?? 'null'),
-        subtitle: Text(
-          description ?? 'unknown',
-          maxLines: 1,
-        ),
-      ),
+        const Divider(
+          color: Colors.grey,
+          thickness: 1,
+        )
+      ],
     );
   }
 }

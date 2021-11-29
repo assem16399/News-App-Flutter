@@ -14,7 +14,7 @@ class ScienceTab extends StatelessWidget {
         listener: (context, newsState) {},
         builder: (context, newsState) {
           final scienceNews = newsData.scienceNewsList;
-          if (newsState is NewsInitialState) {
+          if (scienceNews.isEmpty) {
             return const Center(
               child: CircularProgressIndicator(),
             );

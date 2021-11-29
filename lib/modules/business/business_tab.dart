@@ -14,13 +14,13 @@ class BusinessTab extends StatelessWidget {
         listener: (context, newsState) {},
         builder: (context, newsState) {
           final businessNews = newsData.businessNewsList;
-          if (newsState is NewsInitialState) {
+          if (businessNews.isEmpty) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (newsState is NewsGetSportsFailState) {
-            Future.delayed(Duration.zero).then((_) =>
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('error'))));
+            Future.delayed(Duration.zero).then((_) => ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(content: Text('Something Went Wrong!'))));
             return const SizedBox();
           } else {
             return NewsList(

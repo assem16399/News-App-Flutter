@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/models/news/cubit/news_cubit.dart';
 import 'package:news_app/modules/business/business_tab.dart';
 import 'package:news_app/modules/science/science_tab.dart';
 import 'package:news_app/modules/settings/settings_tab.dart';
 import 'package:news_app/modules/sports/sports_tab.dart';
-import 'package:news_app/shared/components/constatns/constatns.dart';
-import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 class NewsLayout extends StatefulWidget {
   const NewsLayout({Key? key}) : super(key: key);
@@ -41,6 +41,11 @@ class _NewsLayoutState extends State<NewsLayout> {
           setState(() {
             currentPageIndex = index;
           });
+          if (index == 1) {
+            BlocProvider.of<NewsCubit>(context).getBusinessNewsData();
+          } else if (index == 2) {
+            BlocProvider.of<NewsCubit>(context).getScienceNewsData();
+          }
         },
         currentIndex: currentPageIndex,
         items: const [

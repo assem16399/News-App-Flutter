@@ -13,3 +13,5 @@ class NewsGetBusinessFailState extends NewsStates {}
 class NewsGetScienceSuccessState extends NewsStates {}
 
 class NewsGetScienceFailState extends NewsStates {}
+
+class NewsLoadingState extends NewsStates {}
