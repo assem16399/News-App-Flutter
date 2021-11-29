@@ -3,6 +3,8 @@ import 'package:news_app/modules/business/business_tab.dart';
 import 'package:news_app/modules/science/science_tab.dart';
 import 'package:news_app/modules/settings/settings_tab.dart';
 import 'package:news_app/modules/sports/sports_tab.dart';
+import 'package:news_app/shared/components/constatns/constatns.dart';
+import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 class NewsLayout extends StatefulWidget {
   const NewsLayout({Key? key}) : super(key: key);
