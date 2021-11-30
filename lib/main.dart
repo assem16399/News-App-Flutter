@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/models/news/cubit/news_cubit.dart';
+import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 import 'layout/news_layout.dart';
@@ -10,18 +11,26 @@ import 'shared/components/constants/bloc_observer.dart';
 import 'shared/cupit/app_cubit.dart';
 import 'shared/cupit/app_states.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   DioHelper.init();
+  await CacheHelper.init();
+
+  final mode = CacheHelper.getSavedDataInPref();
   BlocOverrides.runZoned(
     () {
-      runApp(const MyApp());
+      runApp(MyApp(
+        mode: mode,
+      ));
     },
     blocObserver: MyBlocObserver(),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final bool? mode;
+  const MyApp({Key? key, required this.mode}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -35,7 +44,11 @@ class MyApp extends StatelessWidget {
         builder: (context, appState) {
           return MaterialApp(
             title: 'Flutter Demo',
-            themeMode: BlocProvider.of<AppCubit>(context).appCurrentThemeMode,
+            themeMode: mode == null
+                ? BlocProvider.of<AppCubit>(context).appCurrentThemeMode
+                : mode == true
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
             darkTheme: ThemeData(
               scaffoldBackgroundColor: const Color(0XFF333739),
               colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepOrange)
