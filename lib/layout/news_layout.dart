@@ -37,7 +37,7 @@ class _NewsLayoutState extends State<NewsLayout> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const SearchScreen(),
+                  builder: (context) => SearchScreen(),
                 ),
               );
             },

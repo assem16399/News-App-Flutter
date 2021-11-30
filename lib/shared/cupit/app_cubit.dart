@@ -18,9 +18,8 @@ class AppCubit extends Cubit<AppStates> {
       _isDark = fromPrefIsDark;
     } else {
       _isDark = !_isDark;
+      emit(AppChangeThemeModeState());
+      CacheHelper.saveDataInPref(_isDark);
     }
-    emit(AppChangeThemeModeState());
-
-    CacheHelper.saveDataInPref(_isDark);
   }
 }
