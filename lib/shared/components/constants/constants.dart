@@ -1,1 +1,1 @@
-const kNewsApiKey = '5098880c06fc4856856ef7e9737707a3';
+const kNewsApiKey = '9c48079d7cb24a23a4f12dd6d97909f6';

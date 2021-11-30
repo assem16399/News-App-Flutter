@@ -14,6 +14,7 @@ class NewsList extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       itemCount: news.length,
       itemBuilder: (context, index) => NewsListItem(
+        url: news[index].url,
         imageUrl: news[index].imageUrl,
         title: news[index].title,
         description: news[index].description,
