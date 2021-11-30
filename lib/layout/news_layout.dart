@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/models/news/cubit/news_cubit.dart';
 import 'package:news_app/modules/business/business_tab.dart';
 import 'package:news_app/modules/science/science_tab.dart';
-import 'package:news_app/modules/settings/settings_tab.dart';
 import 'package:news_app/modules/sports/sports_tab.dart';
+import 'package:news_app/shared/cupit/app_cubit.dart';
 
 class NewsLayout extends StatefulWidget {
   const NewsLayout({Key? key}) : super(key: key);
@@ -18,12 +18,16 @@ class _NewsLayoutState extends State<NewsLayout> {
     const SportsTab(),
     const BusinessTab(),
     const ScienceTab(),
-    const SettingsTab(),
   ];
-  final appBarTitles = <String>['Sports News', 'Business News', 'Science News', 'Settings'];
+  final appBarTitles = <String>[
+    'Sports News',
+    'Business News',
+    'Science News',
+  ];
   var currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final appData = BlocProvider.of<AppCubit>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(appBarTitles[currentPageIndex]),
@@ -31,12 +35,21 @@ class _NewsLayoutState extends State<NewsLayout> {
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.search),
+          ),
+          IconButton(
+            onPressed: () {
+              if (appData.appCurrentThemeMode == ThemeMode.light) {
+                appData.changeAppCurrentThemeMode(ThemeMode.dark);
+              } else {
+                appData.changeAppCurrentThemeMode(ThemeMode.light);
+              }
+            },
+            icon: const Icon(Icons.brightness_4_outlined),
           )
         ],
       ),
       body: tabs[currentPageIndex],
       bottomNavigationBar: BottomNavigationBar(
-        //selectedItemColor: Colors.deepOrange,
         onTap: (index) {
           setState(() {
             currentPageIndex = index;
@@ -52,7 +65,6 @@ class _NewsLayoutState extends State<NewsLayout> {
           BottomNavigationBarItem(icon: Icon(Icons.sports), label: 'Sports'),
           BottomNavigationBarItem(icon: Icon(Icons.business), label: 'Business'),
           BottomNavigationBarItem(icon: Icon(Icons.science), label: 'Science'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
         ],
       ),
     );

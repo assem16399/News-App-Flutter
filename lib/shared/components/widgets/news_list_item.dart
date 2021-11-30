@@ -39,10 +39,15 @@ class NewsListItem extends StatelessWidget {
                     ),
             ),
           ),
-          title: Text(title ?? 'null'),
+          title: Text(
+            title ?? 'null',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
           subtitle: Text(
             description ?? 'unknown',
             maxLines: 1,
+            style: Theme.of(context).textTheme.bodyText2,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         const Divider(
