@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/models/news/cubit/news_cubit.dart';
 import 'package:news_app/modules/business/business_tab.dart';
 import 'package:news_app/modules/science/science_tab.dart';
+import 'package:news_app/modules/search/search_screen.dart';
 import 'package:news_app/modules/sports/sports_tab.dart';
 import 'package:news_app/shared/cupit/app_cubit.dart';
 
@@ -33,16 +34,18 @@ class _NewsLayoutState extends State<NewsLayout> {
         title: Text(appBarTitles[currentPageIndex]),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const SearchScreen(),
+                ),
+              );
+            },
             icon: const Icon(Icons.search),
           ),
           IconButton(
             onPressed: () {
-              if (appData.appCurrentThemeMode == ThemeMode.light) {
-                appData.changeAppCurrentThemeMode(ThemeMode.dark);
-              } else {
-                appData.changeAppCurrentThemeMode(ThemeMode.light);
-              }
+              appData.setThemeModeToDark();
             },
             icon: const Icon(Icons.brightness_4_outlined),
           )

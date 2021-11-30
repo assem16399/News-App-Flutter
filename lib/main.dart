@@ -21,7 +21,7 @@ void main() async {
   BlocOverrides.runZoned(
     () {
       runApp(MyApp(
-        mode: mode,
+        sharedPrefIsDark: mode,
       ));
     },
     blocObserver: MyBlocObserver(),
@@ -29,14 +29,34 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final bool? mode;
-  const MyApp({Key? key, required this.mode}) : super(key: key);
+  final bool? sharedPrefIsDark;
+  const MyApp({Key? key, required this.sharedPrefIsDark}) : super(key: key);
   // This widget is the root of your application.
+
+  // ThemeMode? getThemeMode(bool? cubitThemeModeIsDark, bool? sharedPrefThemeModeIsDark) {
+  //   if (cubitThemeModeIsDark == null && sharedPrefThemeModeIsDark == null) {
+  //     return ThemeMode.system;
+  //   }
+  //   if (cubitThemeModeIsDark == true) {
+  //     return ThemeMode.dark;
+  //   } else if (cubitThemeModeIsDark == false) {
+  //     return ThemeMode.light;
+  //   } else if (cubitThemeModeIsDark == null) {
+  //     if (sharedPrefThemeModeIsDark == true) {
+  //       return ThemeMode.dark;
+  //     } else {
+  //       return ThemeMode.light;
+  //     }
+  //   } else {
+  //     return null;
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => AppCubit()),
+        BlocProvider(create: (context) => AppCubit()..setThemeModeToDark(sharedPrefIsDark)),
         BlocProvider(create: (context) => NewsCubit()..getSportsNewsData())
       ],
       child: BlocConsumer<AppCubit, AppStates>(
@@ -44,11 +64,7 @@ class MyApp extends StatelessWidget {
         builder: (context, appState) {
           return MaterialApp(
             title: 'Flutter Demo',
-            themeMode: mode == null
-                ? BlocProvider.of<AppCubit>(context).appCurrentThemeMode
-                : mode == true
-                    ? ThemeMode.dark
-                    : ThemeMode.light,
+            themeMode: BlocProvider.of<AppCubit>(context).isDark ? ThemeMode.dark : ThemeMode.light,
             darkTheme: ThemeData(
               scaffoldBackgroundColor: const Color(0XFF333739),
               colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepOrange)

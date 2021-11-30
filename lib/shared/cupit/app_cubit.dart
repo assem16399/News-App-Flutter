@@ -7,20 +7,20 @@ import 'app_states.dart';
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitialState());
 
-  var _appCurrentThemeMode = ThemeMode.light;
+  bool _isDark = false;
 
-  ThemeMode get appCurrentThemeMode {
-    final themeMode = _appCurrentThemeMode;
-    return themeMode;
+  bool get isDark {
+    return _isDark;
   }
 
-  void changeAppCurrentThemeMode(ThemeMode mode) {
-    _appCurrentThemeMode = mode;
-    emit(AppChangeThemeModeState());
-    if (mode == ThemeMode.dark) {
-      CacheHelper.saveDataInPref(true);
+  void setThemeModeToDark([bool? fromPrefIsDark = null]) {
+    if (fromPrefIsDark != null) {
+      _isDark = fromPrefIsDark;
     } else {
-      CacheHelper.saveDataInPref();
+      _isDark = !_isDark;
     }
+    emit(AppChangeThemeModeState());
+
+    CacheHelper.saveDataInPref(_isDark);
   }
 }
