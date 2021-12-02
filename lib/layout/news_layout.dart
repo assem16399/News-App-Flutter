@@ -45,7 +45,7 @@ class _NewsLayoutState extends State<NewsLayout> {
           ),
           IconButton(
             onPressed: () {
-              appData.setThemeModeToDark();
+              appData.toggleThemeMode();
             },
             icon: const Icon(Icons.brightness_4_outlined),
           )

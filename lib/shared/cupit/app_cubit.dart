@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:news_app/shared/network/local/cache_helper.dart';
 
 import 'app_states.dart';
@@ -13,7 +12,7 @@ class AppCubit extends Cubit<AppStates> {
     return _isDark;
   }
 
-  void setThemeModeToDark([bool? fromPrefIsDark = null]) {
+  void toggleThemeMode([bool? fromPrefIsDark = null]) {
     if (fromPrefIsDark != null) {
       _isDark = fromPrefIsDark;
     } else {

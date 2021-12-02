@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
@@ -9,7 +8,7 @@ class CacheHelper {
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  static void saveDataInPref([bool isDarkModeOn = false]) {
+  static void saveDataInPref(bool isDarkModeOn) {
     sharedPreferences!.setBool('themeMode', isDarkModeOn);
   }
 
